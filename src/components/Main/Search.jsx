@@ -11,7 +11,7 @@ const InputContainer = styled.label`
 
 const Input = styled.input.attrs({
    type: 'search',
-   placeholder: 'Поиск'
+   placeholder: 'Search'
 })`
    width: 100%;
    height: 40px;

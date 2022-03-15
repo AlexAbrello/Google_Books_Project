@@ -8,7 +8,7 @@ const SelectWrapper = styled.div`
    justify-content: space-between;
 `
 const genre = [
-   { value: 'all', label: 'All' },
+   { value: 'all', label: 'All (default)' },
    { value: 'art', label: 'Art' },
    { value: 'biography', label: 'Biography' },
    { value: 'computers', label: 'Computers' },
@@ -17,7 +17,7 @@ const genre = [
    { value: 'poetry', label: 'Poetry' }
 ]
 const topicality = [
-   { value: 'relevance', label: 'Relevance'},
+   { value: 'relevance', label: 'Relevance (default)'},
    { value: 'newest', label: 'Newest'}
 ]
 
@@ -31,14 +31,14 @@ export const Homepage = () => {
    useEffect(() => {
       if (name) {
          console.log(name)
-         console.log(category)
-         console.log(date)
+         const a = category.value || category
+         console.log(a)
+         console.log(date.value || date)
       }
-   }, [name])
+   }, [name, date, category])
 
    const startSearch = () => {
       setName(search)
-      setSearch('')
    }
 
    return (
@@ -46,15 +46,13 @@ export const Homepage = () => {
          <Search search={search} setSearch={setSearch} startSearch={startSearch} />
          <SelectWrapper>
             <CustomSelect options={genre}
-               placeholder='Жанр'
-               isClearable
+               placeholder='Genre'
                isSearchable={false}
                value={category}
                onChange={setCategory}
             />
             <CustomSelect options={topicality}
-               placeholder='Актуальность'
-               isClearable
+               placeholder='Topicality'
                isSearchable={false}
                value={date}
                onChange={setDate}
