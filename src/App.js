@@ -8,9 +8,10 @@ import { Routes, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-height: 100vh;
-background: url(${wallpaper}) center no-repeat;
-background-size: cover;
+   height: 100vh;
+   background: url(${wallpaper}) center no-repeat;
+   background-size: cover;
+   overflow-y: auto;
 `
 
 function App() {

@@ -20,4 +20,8 @@ export const CustomSelect = styled(Select).attrs({
 })`
    width: 45%;
    margin-top: 10px;
+
+   & * {
+      color: #333333 !important;
+   }
 `

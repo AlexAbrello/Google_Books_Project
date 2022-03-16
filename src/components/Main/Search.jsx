@@ -17,8 +17,10 @@ const Input = styled.input.attrs({
    height: 40px;
    margin-right: 10px;
    padding: 10px;
-   font-size: 20px;
+   font-size: 18px;
    border: none;
+   color: #333333;
+   font-weight: 100;
 
    :focus {
       outline: none;

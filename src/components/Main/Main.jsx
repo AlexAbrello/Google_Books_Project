@@ -1,13 +1,12 @@
 import styled from 'styled-components'
 
 const MainElement = styled.main`
-   padding: 60px 10px 0;
+   padding: 0 10px;
 `
 
 const Container = styled.div`
    margin: 0 auto;
    max-width: 1200px;
-   /* border: 1px solid white; */
 `
 
 
