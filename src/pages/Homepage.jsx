@@ -26,6 +26,17 @@ const ControlWrapper = styled.div`
       margin: 10px auto 0;
    }
 `
+const Button = styled.button`
+   padding: 10px;
+   margin-bottom: 10px;
+   position: relative;
+   left: 50%;
+   transform: translateX(-50%);
+
+   @media (min-width: 767px) {
+      margin: 10px 0;
+   }
+`
 const genre = [
    { value: '', label: 'All (default)' },
    { value: 'art', label: 'Art' },
@@ -46,22 +57,38 @@ export const Homepage = () => {
    const [name, setName] = useState('')
    const [category, setCategory] = useState('')
    const [date, setDate] = useState('relevance')
-   const [result, setResult] = useState([])
+   const [result, setResult] = useState(null)
+   const [count, setCount] = useState(0)
+   const [loader, setLoader] = useState(false)
 
    useEffect(() => {
       if (name) {
          const genre = category.value || category
          const topicality = date.value || date
-         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+subject:${genre}&orderBy=${topicality}&maxResults=3&key=AIzaSyAQD51IlqAMXVVt499lx7nSl1McaYFJCz8`)
+         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+subject:${genre}&orderBy=${topicality}&startIndex=0&maxResults=10&key=AIzaSyAQD51IlqAMXVVt499lx7nSl1McaYFJCz8`)
             .then(res => setResult(res.data.items))
       }
    }, [name, date, category])
 
+   useEffect(() => {
+      if (count > 0) {
+         setLoader(true)
+         const genre = category.value || category
+         const topicality = date.value || date
+         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+subject:${genre}&orderBy=${topicality}&startIndex=${count}&maxResults=10&key=AIzaSyAQD51IlqAMXVVt499lx7nSl1McaYFJCz8`)
+            .then(res => setResult([...result, ...res.data.items]))
+            .finally(() => setLoader(false))
+      }
+   }, [count])
+
    const startSearch = () => {
       setName(search)
+      setCount(0)
    }
 
-   console.log(result)
+   const loadMore = () => {
+      setCount(count + 11)
+   }
 
    return (
       <>
@@ -102,6 +129,7 @@ export const Homepage = () => {
                })
             }
          </List>
+         {result && <Button onClick={loadMore}>LOAD MORE</Button>}
       </>
    )
 }

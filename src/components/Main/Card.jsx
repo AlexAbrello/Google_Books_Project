@@ -28,13 +28,6 @@ const BookAuthor = styled.h5``
 
 export const Card = ({ id, title, description, authors, categories, image }) => {
 
-   console.log(image['smallThumbnail'])
-   console.log(description)
-   console.log(authors)
-   console.log(categories)
-   console.log(title)
-   console.log(id)
-
    return (
       <Wrapper>
          <BookImage src={image['smallThumbnail']} alt={title} />
