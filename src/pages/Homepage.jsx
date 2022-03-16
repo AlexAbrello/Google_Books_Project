@@ -122,6 +122,7 @@ export const Homepage = () => {
          const topicality = date.value || date
          axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+subject:${genre}&orderBy=${topicality}&startIndex=0&maxResults=10&key=AIzaSyAQD51IlqAMXVVt499lx7nSl1McaYFJCz8`)
             .then(res => setResult(res.data.items))
+            .catch(err => console.log(err))
             .finally(() => setLoader(false))
       }
    }, [name, date, category])
@@ -133,6 +134,7 @@ export const Homepage = () => {
          const topicality = date.value || date
          axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+subject:${genre}&orderBy=${topicality}&startIndex=${count}&maxResults=10&key=AIzaSyAQD51IlqAMXVVt499lx7nSl1McaYFJCz8`)
             .then(res => setResult([...result, ...res.data.items]))
+            .catch(err => console.log(err))
             .finally(() => setLoader(false))
       }
    }, [count])
@@ -171,13 +173,11 @@ export const Homepage = () => {
                <LoaderWrapper>
                   <Loader />
                </LoaderWrapper>
-               
             }
             {
                result &&
                result.map(book => {
                   const bookInfo = {
-                     id: book.id,
                      title: book.volumeInfo.title,
                      description: book.volumeInfo.description,
                      authors: book.volumeInfo.authors,
@@ -185,8 +185,8 @@ export const Homepage = () => {
                      image: book.volumeInfo.imageLinks
                   }
                   return (
-                     <Link key={book.id} to={`/details/${book.id}`}>
-                        <Card key={book.id} {...bookInfo} />
+                     <Link key={Math.random()} to={`/details/${book.id}`}>
+                        <Card key={Math.random()} {...bookInfo} />
                      </Link>
                   )
                })

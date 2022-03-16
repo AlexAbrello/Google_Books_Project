@@ -30,7 +30,7 @@ export const Card = ({ id, title, description, authors, categories, image }) => 
 
    return (
       <Wrapper>
-         <BookImage src={image['smallThumbnail']} alt={title} />
+         <BookImage /* src={image['smallThumbnail']} alt={title} */ />
          <CardBody>
             <BookCategory></BookCategory>
             <BookTitle>{title}</BookTitle>
