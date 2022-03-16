@@ -37,6 +37,60 @@ const Button = styled.button`
       margin: 10px 0;
    }
 `
+const Loader = styled.div`
+   color: #ffffff;
+   font-size: 20px;
+   width: 1em;
+   height: 1em;
+   border-radius: 50%;
+   position: relative;
+   top: 50%;
+   left: 50%;
+   text-indent: -9999em;
+   -webkit-animation: load4 1.3s infinite linear;
+   animation: load4 1.3s infinite linear;
+   -webkit-transform: translateZ(0);
+   -ms-transform: translateZ(0);
+   transform: translateZ(0) translate(-50%, -50%);
+
+   @keyframes load4 {
+      0%,
+      100% {
+        box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+      }
+      12.5% {
+        box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+      }
+      25% {
+        box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+      }
+      37.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+      }
+      50% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+      }
+      62.5% {
+        box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+      }
+      75% {
+        box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+      }
+      87.5% {
+        box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+      }
+    }
+`
+const LoaderWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+`
+
 const genre = [
    { value: '', label: 'All (default)' },
    { value: 'art', label: 'Art' },
@@ -63,10 +117,12 @@ export const Homepage = () => {
 
    useEffect(() => {
       if (name) {
+         setLoader(true)
          const genre = category.value || category
          const topicality = date.value || date
          axios.get(`https://www.googleapis.com/books/v1/volumes?q=${name}+subject:${genre}&orderBy=${topicality}&startIndex=0&maxResults=10&key=AIzaSyAQD51IlqAMXVVt499lx7nSl1McaYFJCz8`)
             .then(res => setResult(res.data.items))
+            .finally(() => setLoader(false))
       }
    }, [name, date, category])
 
@@ -110,6 +166,13 @@ export const Homepage = () => {
             </SelectWrapper>
          </ControlWrapper>
          <List>
+            {
+               loader &&
+               <LoaderWrapper>
+                  <Loader />
+               </LoaderWrapper>
+               
+            }
             {
                result &&
                result.map(book => {
