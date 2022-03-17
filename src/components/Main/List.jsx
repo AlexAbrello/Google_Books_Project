@@ -6,6 +6,8 @@ const Wrapper = styled.div`
    flex-direction: column;
 
    @media (min-width: 767px) {
+      width: 100%;
+      height: 100%;
       padding: 0;
       flex-direction: row;
       flex-wrap: wrap;

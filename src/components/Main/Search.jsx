@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { BiSearchAlt } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 
 const InputContainer = styled.label`
    background-color: white;
@@ -26,12 +27,16 @@ const Input = styled.input.attrs({
       outline: none;
    }
 `
-const Button = styled.button`
+const Button = styled(Link).attrs({
+   to: 'result'
+})`
    width: 70px;
    background-color: transparent;
    border: none;
    outline: 1px solid grey;
    border-radius: 5px;
+   text-align: center;
+   color: #333333;
    cursor: pointer;
 
    * {

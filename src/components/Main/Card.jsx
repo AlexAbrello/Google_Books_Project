@@ -9,7 +9,7 @@ const Wrapper = styled.div`
    outline: 1px solid #818181;
    box-shadow: 5px 5px 5px rgb(0 0 0 / 80%);
    cursor: pointer;
-   padding: 10px 5px;
+   padding-top: 10px;
 
    @media (min-width: 767px) {
       margin: 30px 15px 0;
@@ -30,8 +30,8 @@ const BookTitle = styled.h5`
 `
 const BookAuthor = styled.h5``
 
-export const Card = ({ id, title, description, authors, categories, image }) => {
-
+export const Card = ({ title, description, authors, categories, image }) => {
+   
    const picture = image === undefined ? noImage : image.thumbnail
 
    return (

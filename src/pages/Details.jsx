@@ -1,13 +1,20 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import { Loader, LoaderWrapper } from './Homepage'
 
 const Title = styled.h4`
-   margin-top: 100px;
    color: white;
+`
+const Wrapper = styled.div`
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, .95);
+   position: absolute;
+   top: 0;
+   left: 0;
 `
 
 export const Details = () => {
@@ -16,6 +23,9 @@ export const Details = () => {
 
    const [book, setBook] = useState({})
    const [loader, setLoader] = useState(false)
+
+   const navigate = useNavigate()
+   const goBack = () => navigate(-1)
 
    useEffect(() => {
       setLoader(true)
@@ -27,12 +37,15 @@ export const Details = () => {
    return (
       <>
          {
-            loader &&
-            <LoaderWrapper>
-               <Loader />
-            </LoaderWrapper>
+            loader
+               ? <LoaderWrapper>
+                  <Loader />
+               </LoaderWrapper>
+               : <LoaderWrapper>
+                  <Title>{book.title}</Title>
+                  <button onClick={goBack}>Back</button>
+               </LoaderWrapper>
          }
-         <Title>{book.title}</Title>
       </>
    )
 }

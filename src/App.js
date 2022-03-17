@@ -1,6 +1,7 @@
 import { Header } from './components/Header/Header'
 import { Main } from './components/Main/Main'
 import { Homepage } from './pages/Homepage'
+import { Result } from './pages/Result'
 import { Details } from './pages/Details'
 import wallpaper from './assets/wallpaper.jpeg'
 
@@ -21,7 +22,9 @@ function App() {
          <Main>
             <Routes>
                <Route exact path='/' element={<Homepage />} >
-                  <Route path='details/:id' element={<Details />} />
+                  <Route path='result/' element={<Result />} >
+                     <Route path='details/:id' element={<Details />} />
+                  </Route>
                </Route>
             </Routes>
          </Main>

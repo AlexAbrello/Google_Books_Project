@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import wallpaper from '../../assets/wallpaper.jpeg'
+import {Link} from 'react-router-dom'
 
 
 const HeaderElement = styled.header`
@@ -16,11 +17,13 @@ const HeaderElement = styled.header`
       background-size: contain;
    }
 `
-const Title = styled.h1`
+const Title = styled(Link).attrs({
+   to: '/'
+})`
    font-family: 'Roboto';
    color: white;
    font-size: 30px;
-   font-weight: 100;
+   text-decoration: none;
 `
 
 export const Header = () => {

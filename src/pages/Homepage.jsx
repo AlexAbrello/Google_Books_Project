@@ -1,12 +1,9 @@
 import { Search } from "../components/Main/Search"
 import { CustomSelect } from "../components/Main/Select"
-import { List } from '../components/Main/List'
-import { Card } from '../components/Main/Card'
 import wallpaper from '../assets/wallpaper.jpeg'
 
-
 import styled from 'styled-components'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -26,17 +23,7 @@ const ControlWrapper = styled.div`
       margin: 10px auto 0;
    }
 `
-const Button = styled.button`
-   padding: 10px;
-   margin-bottom: 10px;
-   position: relative;
-   left: 50%;
-   transform: translateX(-50%);
 
-   @media (min-width: 767px) {
-      margin: 10px 0;
-   }
-`
 export const Loader = styled.div`
    color: #ffffff;
    font-size: 20px;
@@ -114,7 +101,6 @@ export const Homepage = () => {
    const [result, setResult] = useState(null)
    const [count, setCount] = useState(0)
    const [loader, setLoader] = useState(false)
-   const [detail, setDetail] = useState(false)
 
    useEffect(() => {
       if (name) {
@@ -149,65 +135,26 @@ export const Homepage = () => {
       setCount(count + 10)
    }
 
-   const loadDetails = () => {
-      setDetail(!detail)
-   }
-
    return (
       <>
-         {
-            detail
-               ? <>
-                  < Outlet />
-                  <button onClick={loadDetails}>Back</button>
-               </>
-               : <>
-                  <ControlWrapper>
-                     <Search search={search} setSearch={setSearch} startSearch={startSearch} />
-                     <SelectWrapper>
-                        <CustomSelect options={genre}
-                           placeholder='Genre'
-                           isSearchable={false}
-                           value={category}
-                           onChange={setCategory}
-                        />
-                        <CustomSelect options={topicality}
-                           placeholder='Topicality'
-                           isSearchable={false}
-                           value={date}
-                           onChange={setDate}
-                        />
-                     </SelectWrapper>
-                  </ControlWrapper>
-                  <List>
-                     {
-                        loader &&
-                        <LoaderWrapper>
-                           <Loader />
-                        </LoaderWrapper>
-                     }
-                     {
-                        result &&
-                        result.map(book => {
-                           const bookInfo = {
-                              id: book.id,
-                              title: book.volumeInfo.title,
-                              description: book.volumeInfo.description,
-                              authors: book.volumeInfo.authors,
-                              categories: book.volumeInfo.categories,
-                              image: book.volumeInfo.imageLinks
-                           }
-                           return (
-                              <Link onClick={loadDetails} key={Math.random()} to={`details/${book.id}`}>
-                                 <Card key={Math.random()} {...bookInfo} />
-                              </Link>
-                           )
-                        })
-                     }
-                  </List>
-                  {result && <Button onClick={loadMore}>LOAD MORE</Button>}
-               </>
-         }
+         <ControlWrapper>
+            <Search search={search} setSearch={setSearch} startSearch={startSearch} />
+            <SelectWrapper>
+               <CustomSelect options={genre}
+                  placeholder='Genre'
+                  isSearchable={false}
+                  value={category}
+                  onChange={setCategory}
+               />
+               <CustomSelect options={topicality}
+                  placeholder='Topicality'
+                  isSearchable={false}
+                  value={date}
+                  onChange={setDate}
+               />
+            </SelectWrapper>
+         </ControlWrapper>
+         <Outlet context={[result, loader, loadMore]} />
       </>
    )
 }
