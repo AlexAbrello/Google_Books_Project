@@ -20,8 +20,9 @@ function App() {
          <Header />
          <Main>
             <Routes>
-               <Route exact path='/' element={<Homepage />} />
-               <Route exact path='/details/:id' element={<Details />} />
+               <Route exact path='/' element={<Homepage />} >
+                  <Route path='details/:id' element={<Details />} />
+               </Route>
             </Routes>
          </Main>
       </Wrapper>
