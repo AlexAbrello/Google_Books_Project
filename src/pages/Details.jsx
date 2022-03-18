@@ -8,14 +8,6 @@ import { Loader, LoaderWrapper } from './Homepage'
 const Title = styled.h4`
    color: white;
 `
-const Wrapper = styled.div`
-   width: 100%;
-   height: 100%;
-   background-color: rgba(0, 0, 0, .95);
-   position: absolute;
-   top: 0;
-   left: 0;
-`
 
 export const Details = () => {
 

@@ -17,6 +17,9 @@ const Button = styled.button`
       margin: 10px 0;
    }
 `
+const LinkCard = styled(Link)`
+   text-decoration: none;
+`
 
 export const Result = () => {
 
@@ -43,9 +46,9 @@ export const Result = () => {
                      image: book.volumeInfo.imageLinks
                   }
                   return (
-                     <Link key={Math.random()} to={`details/${book.id}`}>
+                     <LinkCard key={Math.random()} to={`details/${book.id}`}>
                         <Card key={Math.random()} {...bookInfo} />
-                     </Link>
+                     </LinkCard>
                   )
                })
             }
