@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-import { Loader, LoaderWrapper } from './Homepage'
+import { Loader, LoaderWrapper } from '../components/Layout'
 
 const Title = styled.h4`
    color: white;
@@ -29,14 +29,17 @@ export const Details = () => {
    return (
       <>
          {
-            loader
-               ? <LoaderWrapper>
-                  <Loader />
-               </LoaderWrapper>
-               : <LoaderWrapper>
-                  <Title>{book.title}</Title>
-                  <button onClick={goBack}>Back</button>
-               </LoaderWrapper>
+            loader &&
+            <LoaderWrapper>
+               <Loader />
+            </LoaderWrapper>
+         }
+         {
+            book &&
+            
+               <Title>{book.title} <button onClick={goBack}>Back</button></Title>
+               
+            
          }
       </>
    )

@@ -1,9 +1,9 @@
-import { Loader, LoaderWrapper } from './Homepage'
+import { Loader, LoaderWrapper } from '../components/Layout'
 import { List } from '../components/Main/List'
 import { Card } from '../components/Main/Card'
 
 import { useState } from 'react'
-import { Link, useOutletContext, Outlet } from 'react-router-dom'
+import { Link, useOutletContext } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Button = styled.button`
@@ -46,7 +46,7 @@ export const Result = () => {
                      image: book.volumeInfo.imageLinks
                   }
                   return (
-                     <LinkCard key={Math.random()} to={`details/${book.id}`}>
+                     <LinkCard key={Math.random()} to={`/result/${book.id}`}>
                         <Card key={Math.random()} {...bookInfo} />
                      </LinkCard>
                   )
@@ -54,7 +54,6 @@ export const Result = () => {
             }
          </List>
          {result && <Button onClick={loadMore}>LOAD MORE</Button>}
-         <Outlet />
       </>
    )
 }

@@ -41,7 +41,6 @@ const Text = styled.p`
    margin: 5px;
    color: #333333;
 `
-const BookAuthor = styled.p``
 
 export const Card = ({ title, authors, image }) => {
    
