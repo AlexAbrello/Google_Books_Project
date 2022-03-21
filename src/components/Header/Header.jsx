@@ -13,7 +13,6 @@ const HeaderElement = styled.header`
    position: absolute;
 
    @media (min-width: 767px) {
-      position: static;
       background-size: contain;
    }
 `

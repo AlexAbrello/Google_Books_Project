@@ -20,9 +20,12 @@ const ControlWrapper = styled.div`
    margin: 50px auto 0;
 
    @media (min-width: 767px) {
-      position: static;
-      width: 100%;
-      margin: 10px auto 0;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 50px;
+      padding-top: 10px;
+      background-size: cover;
+      margin: 0 auto ;
    }
 `
 export const Loader = styled.div`
@@ -80,6 +83,7 @@ export const LoaderWrapper = styled.div`
 `
 
 const genre = [
+   { value: ' ', label: 'All (default)' },
    { value: 'art', label: 'Art' },
    { value: 'biography', label: 'Biography' },
    { value: 'computers', label: 'Computers' },
@@ -155,7 +159,7 @@ export const Layout = () => {
                   />
                </SelectWrapper>
             </ControlWrapper>
-            <Outlet context={[result, loader, loadMore]} />
+            <Outlet context={[result, loader, loadMore, name]} />
          </Main>
       </>
    )

@@ -12,6 +12,7 @@ const Button = styled.button`
    position: relative;
    left: 50%;
    transform: translateX(-50%);
+   cursor: pointer;
 
    @media (min-width: 767px) {
       margin: 10px 0;
@@ -23,7 +24,7 @@ const LinkCard = styled(Link)`
 
 export const Result = () => {
 
-   const [result, loader, loadMore] = useOutletContext()
+   const [result, loader, loadMore, name] = useOutletContext()
 
    return (
       <>
@@ -37,19 +38,19 @@ export const Result = () => {
             {
                result &&
                result.map(book => {
-                  const bookInfo = {
-                     id: book.id,
-                     title: book.volumeInfo.title,
-                     description: book.volumeInfo.description,
-                     authors: book.volumeInfo.authors,
-                     categories: book.volumeInfo.categories,
-                     image: book.volumeInfo.imageLinks
-                  }
-                  return (
-                     <LinkCard key={Math.random()} to={`/result/${book.id}`}>
-                        <Card key={Math.random()} {...bookInfo} />
-                     </LinkCard>
-                  )
+                     const bookInfo = {
+                        id: book.id,
+                        title: book.volumeInfo.title,
+                        description: book.volumeInfo.description,
+                        authors: book.volumeInfo.authors,
+                        categories: book.volumeInfo.categories,
+                        image: book.volumeInfo.imageLinks
+                     }
+                     return (
+                        <LinkCard key={Math.random()} to={`/result/${book.id}`}>
+                           <Card key={Math.random()} {...bookInfo} />
+                        </LinkCard>
+                     )
                })
             }
          </List>
